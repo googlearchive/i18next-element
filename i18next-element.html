@@ -1,0 +1,30 @@
+<link rel="import" href="i18next-import.html">
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="i18next-element">
+<script>
+(function() {
+
+  window.i18nResources = {};
+
+  i18n.init({
+    resStore: i18nResources
+  });
+
+  i18n.addResources = function(resStore) {
+    Platform.mixin(i18nResources, resStore);
+  };
+
+  i18n_t = i18n.t;
+
+  PolymerExpressions.prototype.$$ = i18n_t;
+
+  Polymer({
+    $$: function() {
+      return i18n_t.apply(window, arguments)
+    }
+  });
+
+})();
+</script>
+</polymer-element>

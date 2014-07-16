@@ -1,4 +1,6 @@
-i18next-element
+1i8next-element
 ===============
 
-Polymer friendly interface to i18next (http://i18next.com/) library
+WORK IN PROGRESS
+
+This element is being developed, and is not ready for production use.

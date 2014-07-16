@@ -1,0 +1,121 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html>
+<head>
+
+  <title>i18n-element</title>
+
+  <script src="../platform/platform.js"></script>
+
+  <link rel="import" href="../core-item/core-item.html">
+  <link rel="import" href="../core-icons/core-icons.html">
+
+  <link rel="import" href="i18next-element.html">
+
+  <!--
+    * probably each view loads one of these
+    * no good way right now of choosing an import based on client side info
+    * (like locale pref)
+      * server could return the 'right thing'
+      * could put all the things in the one import
+  -->
+  <link rel="import" href="i18n.html">
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+  <i18n-demo></i18n-demo>
+
+  <polymer-element name="i18n-demo">
+  <template>
+
+    <core-item label="[['Good' | $$]]" icon="store"></core-item>
+
+    <core-item label="[[$$('Bad')]]" icon="store"></core-item>
+
+    <core-item label="[['Squid' | $$({count: 1})]]" icon="store"></core-item>
+
+    <core-item label="{{$$('Squid', {count: numSquids})}}" icon="store"></core-item>
+
+  </template>
+  <script>
+
+    Polymer('i18n-demo', {
+      numSquids: 5
+    });
+
+  </script>
+  </polymer-element>
+
+  <hr><!---------------------------------------------------------------------->
+
+  <i18n-demo2></i18n-demo2>
+
+  <polymer-element name="i18n-demo2">
+  <template>
+
+    <core-item label="{{'Good' | $$$}}" icon="store"></core-item>
+
+    <core-item label="{{$$$('Bad')}}" icon="store"></core-item>
+
+    <core-item label="{{'Squid' | $$$({count: 1})}}" icon="store"></core-item>
+
+    <core-item label="{{$$$('Squid', {count: 5})}}" icon="store"></core-item>
+
+  </template>
+  <script>
+
+    Polymer('i18n-demo2', {
+      created: function() {
+        this.$$$ = document.createElement('i18next-element').$$;
+      }
+    })
+
+  </script>
+  </polymer-element>
+
+  <hr><!---------------------------------------------------------------------->
+
+  <i18n-demo3></i18n-demo3>
+
+  <polymer-element name="i18n-demo3">
+  <template>
+
+    <i18n-element id="i18n"></i18n-element>
+
+    <core-item label="{{'Good' | $$$}}" icon="store"></core-item>
+
+    <core-item label="{{$$$('Bad')}}" icon="store"></core-item>
+
+    <core-item label="{{'Squid' | $$$({count: 1})}}" icon="store"></core-item>
+
+    <core-item label="{{$$$('Squid', {count: 5})}}" icon="store"></core-item>
+
+  </template>
+  <script>
+
+    Polymer('i18n-demo3', {
+      computed: {
+        '$$$': '$.i18n.$$'
+      }
+    })
+
+  </script>
+  </polymer-element>
+
+</body>
+</html>
